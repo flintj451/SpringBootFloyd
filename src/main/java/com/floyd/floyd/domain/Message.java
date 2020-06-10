@@ -8,58 +8,25 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Message {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
     @NotEmpty(message = "please fill the message")
     @Length(max = 2048, message = "too long")
     private String text;
     @Length(max = 255, message = "too long")
     private String tag;
-    private String filename;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+    private LocalDateTime localDateTime;
+    private boolean added;
+
 
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
-
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
-    }
-
-    private LocalDateTime localDateTime;
-   private boolean added;
-
-    private String html;
-
-    public String getHtml() {
-        return html;
-    }
-
-    public void setHtml(String html) {
-        this.html = html;
-    }
-
-    public boolean isAdded() {
-        return added;
-    }
-
-    public void setAdded(boolean added) {
-        this.added = added;
-    }
-
-
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User author;
 
     public Message() {
     }
@@ -68,6 +35,18 @@ public class Message {
         this.author = user;
         this.text = text;
         this.tag = tag;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public boolean isAdded() {
+        return added;
+    }
+
+    public void setAdded(boolean added) {
+        this.added = added;
     }
 
     public String getAuthorName() {

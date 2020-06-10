@@ -7,17 +7,17 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
 @Component
-public class ActivationUsers {
-    private HashMap<String, User> map =new HashMap<String, User>() ;
+public class NotActivatedUsers {
+    private HashMap<String, User> map = new HashMap<>();
+
     public User getUser(String code) {
-        User user =map.get(code);
+        User user = map.get(code);
         map.remove(code);
-        return user ;
+        return user;
     }
 
     public void addUser(String code, User user) {
-
-        map.put(code,user);
+        map.put(code, user);
     }
 
 

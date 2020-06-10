@@ -16,39 +16,32 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private boolean getNews;
-
     @NotEmpty(message = " Username cannot be empty")
     private String username;
     @NotEmpty(message = " Password cannot be empty")
     private String password;
-
     public boolean isGetNews() {
         return getNews;
     }
-
     public void setGetNews(boolean getNews) {
         this.getNews = getNews;
     }
-
     private boolean active;
     @Email(message = "Email isnt correct")
     @NotEmpty(message = " Email cannot ne empty")
-    private  String email;
+    private String email;
     private String activationCode;
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public Long getId() {
-        return id;
-    }
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
